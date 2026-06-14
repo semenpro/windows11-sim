@@ -64,10 +64,9 @@
             height: 100vh;
             background: url('https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=1920') no-repeat center center;
             background-size: cover;
-            display: none; /* Появится после загрузки */
+            display: none;
         }
 
-        /* Ярлыки на рабочем столе */
         .shortcuts-grid {
             position: absolute;
             top: 20px;
@@ -106,13 +105,12 @@
             color: #ffffff;
             font-size: 12px;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
-            font-weight: 400;
         }
 
         /* --- Окна Приложений --- */
         .window {
             position: absolute;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 8px;
@@ -164,17 +162,10 @@
             color: #333;
             border-radius: 3px;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
-        .control-btn:hover {
-            background: rgba(0, 0, 0, 0.08);
-        }
-
-        .control-btn.close-btn:hover {
-            background: #e81123;
-            color: white;
-        }
+        .control-btn:hover { background: rgba(0, 0, 0, 0.08); }
+        .control-btn.close-btn:hover { background: #e81123; color: white; }
 
         .window-content {
             flex: 1;
@@ -182,11 +173,10 @@
             position: relative;
         }
 
-        /* Специфика окон */
-        #browser-window { width: 700px; height: 500px; top: 10%; left: 20%; }
-        #calc-window { width: 320px; height: 460px; top: 15%; left: 40%; }
+        #browser-window { width: 850px; height: 580px; top: 5%; left: 15%; }
+        #calc-window { width: 320px; height: 460px; top: 15%; left: 45%; }
 
-        /* Контент Браузера */
+        /* --- Рабочий Браузер --- */
         .browser-container {
             display: flex;
             flex-direction: column;
@@ -202,345 +192,4 @@
             border-bottom: 1px solid #e0e0e0;
         }
 
-        .browser-address {
-            flex: 1;
-            padding: 5px 12px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .browser-page {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #fafafa;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* Контент Калькулятора */
-        .calc-container {
-            padding: 15px;
-            height: 100%;
-            background: #f3f3f3;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #calc-screen {
-            width: 100%;
-            height: 60px;
-            background: transparent;
-            border: none;
-            font-size: 32px;
-            text-align: right;
-            padding: 10px;
-            margin-bottom: 15px;
-            outline: none;
-            color: #111;
-        }
-
-        .calc-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            flex: 1;
-        }
-
-        .calc-btn {
-            background: #ffffff;
-            border: 1px solid #e5e5e5;
-            border-radius: 4px;
-            font-size: 18px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.1s;
-        }
-
-        .calc-btn:hover { background: #f9f9f9; }
-        .calc-btn.op-btn { background: #f3f3f3; font-weight: bold; }
-        .calc-btn.op-btn:hover { background: #eaeaea; }
-        .calc-btn.eq-btn { background: #0078d4; color: white; border: none; }
-        .calc-btn.eq-btn:hover { background: #006cc1; }
-
-        /* --- Панель задач (Taskbar) --- */
-        .taskbar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 48px;
-            background: rgba(243, 243, 243, 0.85);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .taskbar-icons {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .taskbar-item {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .taskbar-item:hover {
-            background: rgba(255, 255, 255, 0.6);
-        }
-
-        .taskbar-item img {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-        }
-
-        /* Виджеты справа (время/дата) */
-        .taskbar-right {
-            position: absolute;
-            right: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            font-size: 12px;
-            color: #202020;
-            cursor: default;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="boot-screen">
-        <img id="boot-logo" src="i.webp" alt="Windows 11">
-        <div class="loader"></div>
-    </div>
-
-    <div id="desktop">
-        
-        <div class="shortcuts-grid">
-            <div class="desktop-shortcut" onclick="openWindow('browser-window')">
-                <img src="i.jpg" alt="Браузер">
-                <span>Браузер</span>
-            </div>
-            <div class="desktop-shortcut" onclick="openWindow('calc-window')">
-                <img src="i (1).webp" alt="Калькулятор">
-                <span>Калькулятор</span>
-            </div>
-        </div>
-
-        <div id="browser-window" class="window" onmousedown="bringToFront(this)">
-            <div class="window-header">
-                <div class="window-title">
-                    <img src="i.jpg" alt="">
-                    <span>Microsoft Edge</span>
-                </div>
-                <div class="window-controls">
-                    <div class="control-btn" onclick="minimizeWindow('browser-window')"></div>
-                    <div class="control-btn close-btn" onclick="closeWindow('browser-window')">✕</div>
-                </div>
-            </div>
-            <div class="window-content">
-                <div class="browser-container">
-                    <div class="browser-navbar">
-                        <input type="text" class="browser-address" value="https://www.microsoft.com" readonly>
-                    </div>
-                    <div class="browser-page">
-                        <img src="i.jpg" style="width: 80px; margin-bottom: 15px;" alt="">
-                        <h2>Добро пожаловать в симуляцию Edge!</h2>
-                        <p style="color: #666; margin-top: 10px;">Интерфейс полностью рабочий. Безопасный просмотр включен.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="calc-window" class="window" onmousedown="bringToFront(this)">
-            <div class="window-header">
-                <div class="window-title">
-                    <img src="i (1).webp" alt="">
-                    <span>Калькулятор</span>
-                </div>
-                <div class="window-controls">
-                    <div class="control-btn" onclick="minimizeWindow('calc-window')"></div>
-                    <div class="control-btn close-btn" onclick="closeWindow('calc-window')">✕</div>
-                </div>
-            </div>
-            <div class="window-content">
-                <div class="calc-container">
-                    <input type="text" id="calc-screen" value="0" readonly>
-                    <div class="calc-grid">
-                        <button class="calc-btn op-btn" onclick="clearCalc()">C</button>
-                        <button class="calc-btn op-btn" onclick="pressCalc('/')">/</button>
-                        <button class="calc-btn op-btn" onclick="pressCalc('*')">*</button>
-                        <button class="calc-btn op-btn" onclick="pressCalc('-')">-</button>
-                        
-                        <button class="calc-btn" onclick="pressCalc('7')">7</button>
-                        <button class="calc-btn" onclick="pressCalc('8')">8</button>
-                        <button class="calc-btn" onclick="pressCalc('9')">9</button>
-                        <button class="calc-btn op-btn" onclick="pressCalc('+')">+</button>
-                        
-                        <button class="calc-btn" onclick="pressCalc('4')">4</button>
-                        <button class="calc-btn" onclick="pressCalc('5')">5</button>
-                        <button class="calc-btn" onclick="pressCalc('6')">6</button>
-                        <button class="calc-btn eq-btn" style="grid-row: span 3;" onclick="calculateResult()">=</button>
-                        
-                        <button class="calc-btn" onclick="pressCalc('1')">1</button>
-                        <button class="calc-btn" onclick="pressCalc('2')">2</button>
-                        <button class="calc-btn" onclick="pressCalc('3')">3</button>
-                        
-                        <button class="calc-btn" style="grid-column: span 2;" onclick="pressCalc('0')">0</button>
-                        <button class="calc-btn" onclick="pressCalc('.')">.</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="taskbar">
-            <div class="taskbar-icons">
-                <div class="taskbar-item">
-                    <img src="i.webp" alt="Пуск">
-                </div>
-                <div class="taskbar-item" onclick="openWindow('browser-window')">
-                    <img src="i.jpg" alt="Браузер">
-                </div>
-                <div class="taskbar-item" onclick="openWindow('calc-window')">
-                    <img src="i (1).webp" alt="Калькулятор">
-                </div>
-            </div>
-
-            <div class="taskbar-right">
-                <div id="current-time">12:00</div>
-                <div id="current-date">01.01.2026</div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        // Имитация загрузки системы (3 секунды)
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                const bootScreen = document.getElementById('boot-screen');
-                const desktop = document.getElementById('desktop');
-                
-                bootScreen.style.opacity = '0';
-                setTimeout(() => {
-                    bootScreen.style.display = 'none';
-                    desktop.style.display = 'block';
-                }, 800);
-            }, 3000);
-
-            // Инициализация часов
-            updateClock();
-            setInterval(updateClock, 1000);
-
-            // Делаем все окна перетаскиваемыми
-            document.querySelectorAll('.window').forEach(win => {
-                makeDraggable(win);
-            });
-        });
-
-        // Часы и дата для панели задач
-        function updateClock() {
-            const timeEl = document.getElementById('current-time');
-            const dateEl = document.getElementById('current-date');
-            const now = new Date();
-            
-            timeEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            dateEl.textContent = now.toLocaleDateString();
-        }
-
-        // Управление окнами (Открыть, Закрыть, Поверх остальных)
-        let zIndexCounter = 10;
-
-        function openWindow(id) {
-            const win = document.getElementById(id);
-            win.style.display = 'flex';
-            bringToFront(win);
-        }
-
-        function closeWindow(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-
-        function minimizeWindow(id) {
-            document.getElementById(id).style.display = 'none'; // Упрощенное сворачивание
-        }
-
-        function bringToFront(windowEl) {
-            zIndexCounter++;
-            windowEl.style.zIndex = zIndexCounter;
-        }
-
-        // Функция перетаскивания окон (Drag & Drop)
-        function makeDraggable(windowEl) {
-            const header = windowEl.querySelector('.window-header');
-            let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
-
-            header.onmousedown = (e) => {
-                e.preventDefault();
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                document.onmouseup = () => {
-                    document.onmouseup = null;
-                    document.onmousemove = null;
-                };
-                document.onmousemove = (ev) => {
-                    ev.preventDefault();
-                    posX = mouseX - ev.clientX;
-                    posY = mouseY - ev.clientY;
-                    mouseX = ev.clientX;
-                    mouseY = ev.clientY;
-                    windowEl.style.top = (windowEl.offsetTop - posY) + "px";
-                    windowEl.style.left = (windowEl.offsetLeft - posX) + "px";
-                };
-            };
-        }
-
-        /* --- Логика Калькулятора --- */
-        let calcExpression = "";
-        const screen = document.getElementById('calc-screen');
-
-        function pressCalc(val) {
-            if (screen.value === "0" && !isNaN(val)) {
-                calcExpression = val;
-            } else {
-                calcExpression += val;
-            }
-            screen.value = calcExpression;
-        }
-
-        function clearCalc() {
-            calcExpression = "";
-            screen.value = "0";
-        }
-
-        function calculateResult() {
-            try {
-                // Вычисление математического выражения
-                let result = eval(calcExpression);
-                screen.value = result;
-                calcExpression = result.toString();
-            } catch (error) {
-                screen.value = "Ошибка";
-                calcExpression = "";
-            }
-        }
-    </script>
-</body>
-</html>
+        .
